@@ -10,5 +10,6 @@ public class MagasinRepository {
         this.manager = manager;
     }
 
-
+    public void insert(){
+    }
 }
