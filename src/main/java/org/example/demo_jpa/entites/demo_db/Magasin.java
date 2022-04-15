@@ -22,7 +22,7 @@ public class Magasin {
     @JoinColumn(
             name = "gerant_id",
             unique = true,
-            nullable = false,
+//            nullable = false,
             foreignKey = @ForeignKey(name = "FK_magasin_gerant_id")
     )
     private Gerant gerant;
@@ -41,15 +41,14 @@ public class Magasin {
     @JoinTable(
             name = "EnVente",
             joinColumns = @JoinColumn(name = "magasin_id"),
-            inverseJoinColumns = @JoinColumn(name = "prroduit_id")
+            inverseJoinColumns = @JoinColumn(name = "produit_id")
     )
     private List<Produit> produitsDisponibles;
 
     public Magasin() {
     }
 
-    public Magasin(long id, String nom, String adresse) {
-        this.id = id;
+    public Magasin(String nom, String adresse) {
         this.nom = nom;
         this.adresse = adresse;
     }

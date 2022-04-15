@@ -1,9 +1,11 @@
 package org.example.demo_jpa.entites.demo_db;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name = "product")
 public class Produit {
 
     @Id
@@ -16,6 +18,9 @@ public class Produit {
 
     @Column(nullable = false, length = 40)
     private String marque;
+
+    @Column(name = "product_peremption")
+    private LocalDate peremption;
 
     @ManyToMany(mappedBy = "produitsDisponibles")
     private List<Magasin> disponibleDans;
