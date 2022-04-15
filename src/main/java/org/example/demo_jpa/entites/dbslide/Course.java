@@ -1,11 +1,11 @@
-package org.example.demo_jpa.entites;
+package org.example.demo_jpa.entites.dbslide;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+//@Entity
 @Table(name = "course")
 public class Course {
 

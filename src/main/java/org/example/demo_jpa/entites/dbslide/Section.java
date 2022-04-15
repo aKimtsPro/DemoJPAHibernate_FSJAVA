@@ -1,13 +1,14 @@
-package org.example.demo_jpa.entites;
+package org.example.demo_jpa.entites.dbslide;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+//@Entity
 @Table(name = "section")
 public class Section
 {
     @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column(name = "section_id")
     private int sectionId;
     @Column(name = "section_name")
