@@ -7,7 +7,6 @@ import java.util.List;
 @Table(name = "magasin")
 public class Magasin {
 
-    // store_id, auto-increment
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "store_id")
@@ -19,13 +18,32 @@ public class Magasin {
     @Column(name = "store_address", length = 200)
     private String adresse;
 
+    @OneToOne
+    @JoinColumn(
+            name = "gerant_id",
+            unique = true,
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_magasin_gerant_id")
+    )
+    private Gerant gerant;
+
     @ManyToMany
     @JoinTable(
             name = "emploi",
             joinColumns = @JoinColumn(name = "magasin_id"),
-            inverseJoinColumns = @JoinColumn(name = "employe_id")
+            inverseJoinColumns = @JoinColumn(name = "employe_id"),
+            foreignKey = @ForeignKey(name = "FK_emploi_magasin_id"), // permet à Hibernate de ne pas avoir à générer un nom de FK nul
+            inverseForeignKey = @ForeignKey(name = "FK_emploi_employe_id")
     )
     private List<Employe> employes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "EnVente",
+            joinColumns = @JoinColumn(name = "magasin_id"),
+            inverseJoinColumns = @JoinColumn(name = "prroduit_id")
+    )
+    private List<Produit> produitsDisponibles;
 
     public Magasin() {
     }
@@ -58,5 +76,29 @@ public class Magasin {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public Gerant getGerant() {
+        return gerant;
+    }
+
+    public void setGerant(Gerant gerant) {
+        this.gerant = gerant;
+    }
+
+    public List<Employe> getEmployes() {
+        return employes;
+    }
+
+    public void setEmployes(List<Employe> employes) {
+        this.employes = employes;
+    }
+
+    public List<Produit> getProduitsDisponibles() {
+        return produitsDisponibles;
+    }
+
+    public void setProduitsDisponibles(List<Produit> produitsDisponibles) {
+        this.produitsDisponibles = produitsDisponibles;
     }
 }
