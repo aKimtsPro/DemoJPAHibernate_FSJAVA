@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "select_by_name", query = "SELECT e FROM Employe e WHERE e.nom = :nom")
+})
 public class Employe {
 
     @Id

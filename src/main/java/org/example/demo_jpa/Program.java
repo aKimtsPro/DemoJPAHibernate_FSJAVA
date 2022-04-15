@@ -2,7 +2,9 @@ package org.example.demo_jpa;
 
 import org.example.demo_jpa.entites.dbslide.Course;
 import org.example.demo_jpa.entites.dbslide.Section;
+import org.example.demo_jpa.entites.demo_db.Gerant;
 import org.example.demo_jpa.entites.demo_db.Magasin;
+import org.example.demo_jpa.entites.repository.MagasinRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +13,7 @@ import javax.persistence.Persistence;
 public class Program {
 
     public static void main(String[] args) {
+
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
         EntityManager em = emf.createEntityManager();
@@ -29,6 +32,21 @@ public class Program {
         em.persist(pasGere);
 
         em.getTransaction().commit();
+
+        // Avec Repo
+
+        MagasinRepository repository = new MagasinRepository(em);
+        Magasin mag = new Magasin("mon mag avec Gerard", "mon adresse");
+        mag.setId(1);
+
+        Gerant g = new Gerant(1000, "Gerard", "Rance");
+        em.persist(g);
+
+        mag.setGerant( g );
+
+        repository.update(mag);
+
+
 
 //        Magasin gere = em.find(Magasin.class, 1);
 //
