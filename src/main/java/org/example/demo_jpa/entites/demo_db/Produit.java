@@ -3,6 +3,7 @@ package org.example.demo_jpa.entites.demo_db;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -25,8 +26,10 @@ public class Produit {
     @ManyToMany(mappedBy = "produitsDisponibles")
     private List<Magasin> disponibleDans;
 
-    public Produit(long id, String nom, String marque) {
-        this.id = id;
+    @OneToMany(mappedBy = "produit")
+    private List<Livrable> livrables;
+
+    public Produit(String nom, String marque) {
         this.nom = nom;
         this.marque = marque;
     }
@@ -64,5 +67,18 @@ public class Produit {
 
     public void setDisponibleDans(List<Magasin> disponibleDans) {
         this.disponibleDans = disponibleDans;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produit produit = (Produit) o;
+        return id == produit.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, marque, peremption, disponibleDans);
     }
 }

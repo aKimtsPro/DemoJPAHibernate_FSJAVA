@@ -1,7 +1,7 @@
 package org.example.demo_jpa;
 
-import org.example.demo_jpa.entites.dbslide.Course;
-import org.example.demo_jpa.entites.dbslide.Section;
+import org.example.demo_jpa.entites.demo_db.Client;
+import org.example.demo_jpa.entites.demo_db.ClientID;
 import org.example.demo_jpa.entites.demo_db.Gerant;
 import org.example.demo_jpa.entites.demo_db.Magasin;
 import org.example.demo_jpa.entites.repository.MagasinRepository;
@@ -46,6 +46,8 @@ public class Program {
 
         repository.update(mag);
 
+
+        Client c = em.find(Client.class, new ClientID("dubois", "luc"));
 
 
 //        Magasin gere = em.find(Magasin.class, 1);

@@ -2,6 +2,7 @@ package org.example.demo_jpa.entites.demo_db;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "magasin")
@@ -29,21 +30,14 @@ public class Magasin {
 
     @ManyToMany
     @JoinTable(
-            name = "emploi",
-            joinColumns = @JoinColumn(name = "magasin_id"),
-            inverseJoinColumns = @JoinColumn(name = "employe_id"),
-            foreignKey = @ForeignKey(name = "FK_emploi_magasin_id"), // permet à Hibernate de ne pas avoir à générer un nom de FK nul
-            inverseForeignKey = @ForeignKey(name = "FK_emploi_employe_id")
-    )
-    private List<Employe> employes;
-
-    @ManyToMany
-    @JoinTable(
             name = "EnVente",
             joinColumns = @JoinColumn(name = "magasin_id"),
             inverseJoinColumns = @JoinColumn(name = "produit_id")
     )
     private List<Produit> produitsDisponibles;
+
+    @OneToMany(mappedBy = "magasin")
+    private Set<Travail> travails;
 
     public Magasin() {
     }
@@ -85,19 +79,19 @@ public class Magasin {
         this.gerant = gerant;
     }
 
-    public List<Employe> getEmployes() {
-        return employes;
-    }
-
-    public void setEmployes(List<Employe> employes) {
-        this.employes = employes;
-    }
-
     public List<Produit> getProduitsDisponibles() {
         return produitsDisponibles;
     }
 
     public void setProduitsDisponibles(List<Produit> produitsDisponibles) {
         this.produitsDisponibles = produitsDisponibles;
+    }
+
+    public Set<Travail> getTravails() {
+        return travails;
+    }
+
+    public void setTravails(Set<Travail> travails) {
+        this.travails = travails;
     }
 }
